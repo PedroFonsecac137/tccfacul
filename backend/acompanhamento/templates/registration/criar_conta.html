@@ -1,0 +1,5 @@
+{% extends "acompanhamento/base.html" %}
+{% block title %}Criar conta · IncluiEdu{% endblock %}
+{% block content %}
+<section class="auth-layout"><div class="auth-intro"><span class="auth-kicker">Comece gratuitamente</span><h1>Crie seu espaço de acompanhamento.</h1><p>Suas turmas, registros e atividades ficam organizados em uma única plataforma.</p><ul><li>Cadastro de turmas e alunos</li><li>Registros pedagógicos individuais</li><li>Atividades com IA local</li></ul></div><form class="panel panel-body form auth-card signup-card" method="post">{% csrf_token %}<h2>Criar conta de professor</h2>{{ form.as_div }}<button class="button primary full" type="submit">Criar minha conta</button><p class="auth-switch">Já possui uma conta? <a href="{% url 'login' %}">Entrar</a></p></form></section>
+{% endblock %}

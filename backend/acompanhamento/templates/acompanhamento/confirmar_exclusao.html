@@ -1,0 +1,6 @@
+{% extends "acompanhamento/base.html" %}
+{% block title %}Confirmar exclusão · IncluiEdu{% endblock %}
+{% block content %}
+<a class="back" href="{% url 'acompanhamento:gerenciar' %}">← Voltar</a>
+<section class="panel confirm-card"><span class="warning-icon">!</span><h1>Excluir {{ tipo }} “{{ objeto }}”?</h1><p>{{ aviso }}</p><p>Essa ação não poderá ser desfeita.</p><form method="post">{% csrf_token %}<a class="button secondary" href="{% url 'acompanhamento:gerenciar' %}">Cancelar</a><button class="button danger" type="submit">Confirmar exclusão</button></form></section>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "acompanhamento/base.html" %}
+{% block title %}Gerenciar turmas e alunos · IncluiEdu{% endblock %}
+{% block content %}
+<header class="page-heading heading-actions"><div><h1>Turmas e alunos</h1><p>Cadastre e mantenha organizadas as turmas acompanhadas.</p></div><a class="button primary" href="{% url 'acompanhamento:turma_nova' %}">Nova turma</a></header>
+<section class="manage-list">
+  {% for turma in turmas %}
+  <article class="panel manage-card">
+    <div class="panel-heading manage-heading"><div><h2>{{ turma.nome }}</h2><span>{{ turma.turno }} · {{ turma.alunos.count }} aluno{{ turma.alunos.count|pluralize }}</span></div><div class="inline-actions"><a href="{% url 'acompanhamento:turma_editar' turma.id %}">Editar</a><a class="danger-link" href="{% url 'acompanhamento:turma_excluir' turma.id %}">Excluir</a></div></div>
+    <div class="manage-students">
+      {% for aluno in turma.alunos.all %}<div class="manage-student"><span class="avatar">{{ aluno.iniciais }}</span><span><strong>{{ aluno.nome }}</strong><small>{{ aluno.area }}</small></span><div class="inline-actions"><a href="{% url 'acompanhamento:aluno_editar' aluno.id %}">Editar</a><a class="danger-link" href="{% url 'acompanhamento:aluno_excluir' aluno.id %}">Excluir</a></div></div>{% empty %}<p class="empty">Nenhum aluno cadastrado nesta turma.</p>{% endfor %}
+    </div>
+    <div class="manage-footer"><a class="button secondary" href="{% url 'acompanhamento:aluno_novo' %}?turma={{ turma.id }}">Adicionar aluno</a><a class="text-link" href="{% url 'acompanhamento:painel' %}?turma={{ turma.id }}">Abrir acompanhamento →</a></div>
+  </article>
+  {% empty %}<div class="panel empty-state"><h2>Nenhuma turma cadastrada</h2><p>Crie a primeira turma para começar o acompanhamento.</p><a class="button primary" href="{% url 'acompanhamento:turma_nova' %}">Criar primeira turma</a></div>{% endfor %}
+</section>
+{% endblock %}
+

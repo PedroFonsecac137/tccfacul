@@ -1,0 +1,20 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "incluiedu",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-04",
+  "observability": { "enabled": true },
+  "ai": { "binding": "AI" },
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "not_found_handling": "single-page-application"
+  },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "incluiedu-db",
+    "database_id": "6d448f8a-bf8c-4dbe-b754-8cb97fdce178",
+    "migrations_dir": "./migrations"
+  }]
+}

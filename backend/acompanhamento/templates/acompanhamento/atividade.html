@@ -1,0 +1,11 @@
+{% extends "acompanhamento/base.html" %}
+{% block title %}Criar atividade · IncluiEdu{% endblock %}
+{% block content %}
+<a class="back" href="{% url 'acompanhamento:aluno' aluno.id %}">← Voltar para {{ aluno.nome }}</a>
+<header class="page-heading"><h1>Criar atividade personalizada</h1><p>A atividade considera os registros pedagógicos e deve ser revisada antes da aplicação.</p></header>
+<section class="activity-grid">
+  <form class="panel panel-body form" method="post">{% csrf_token %}{{ form.as_div }}<button class="button primary full" type="submit">Gerar atividade</button></form>
+  <article class="panel worksheet">{% if atividade %}<div class="worksheet-actions"><span>{% if atividade.criada_por_ia %}Gerada com IA local{% else %}Modelo local usado{% endif %}</span><button class="button secondary" onclick="window.print()">Imprimir</button></div><div class="paper"><h2>{{ atividade.titulo }}</h2><p><strong>Objetivo:</strong> {{ atividade.objetivo }}</p><h3>Orientação ao professor</h3><p>{{ atividade.instrucoes }}</p><h3>Atividade</h3><p class="preline">{{ atividade.conteudo }}</p></div>{% else %}<div class="empty preview-empty"><strong>A atividade aparecerá aqui</strong><p>Preencha as opções e selecione “Gerar atividade”.</p></div>{% endif %}</article>
+</section>
+{% endblock %}
+

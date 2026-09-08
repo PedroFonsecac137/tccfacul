@@ -1,0 +1,403 @@
+.dashboard-grid {
+  align-items: stretch;
+}
+
+.dashboard-grid > .panel {
+  height: 100%;
+}
+
+.filters > .field {
+  grid-template-rows: auto 44px 18px;
+  align-content: start;
+}
+
+.search-row,
+.search-row input,
+.search-row .button {
+  height: 44px;
+}
+
+@media (max-width: 760px) {
+  .dashboard-grid > .panel {
+    height: auto;
+  }
+
+  .guidance {
+    order: initial;
+  }
+}
+
+@media (max-width: 440px) {
+  .filters > .field {
+    grid-template-rows: auto auto auto;
+  }
+
+  .search-row {
+    height: auto;
+  }
+}
+
+.top-actions,
+.heading-actions,
+.student-actions,
+.inline-actions,
+.manage-footer,
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.top-actions {
+  margin-left: auto;
+}
+
+.top-actions form {
+  margin: 0;
+}
+
+.logout-button {
+  padding: 7px 9px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: .85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.brand-mark {
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-book {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  width: 20px;
+  height: 11px;
+  border: 2px solid #fff;
+  border-top: 0;
+  border-radius: 0 0 5px 5px;
+}
+
+.logo-book::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 0;
+  width: 2px;
+  height: 9px;
+  background: #fff;
+}
+
+.logo-person {
+  position: absolute;
+  left: 15px;
+  top: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.top-actions > a {
+  color: var(--muted);
+  font-size: .9rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.top-actions > a:hover,
+.text-link,
+.inline-actions a {
+  color: var(--brand);
+}
+
+.heading-actions {
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.student-actions {
+  margin-left: auto;
+}
+
+.student-header .student-actions .status {
+  margin-left: 0;
+}
+
+.button.compact {
+  min-height: 36px;
+  padding-inline: 12px;
+  font-size: .85rem;
+}
+
+.button.danger {
+  border-color: #a5392f;
+  background: #a5392f;
+  color: #fff;
+}
+
+.manage-list {
+  display: grid;
+  gap: 18px;
+}
+
+.manage-heading {
+  min-height: 72px;
+}
+
+.manage-heading > div:first-child {
+  display: grid;
+  gap: 5px;
+}
+
+.inline-actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.inline-actions a,
+.text-link {
+  font-size: .85rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.inline-actions .danger-link {
+  color: #a5392f;
+}
+
+.manage-student {
+  min-height: 70px;
+  padding: 12px 19px;
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.manage-student > span:nth-child(2) {
+  display: grid;
+  gap: 4px;
+}
+
+.manage-student small {
+  color: var(--muted);
+}
+
+.manage-footer {
+  justify-content: space-between;
+  padding: 14px 19px;
+  background: var(--soft);
+}
+
+.cadastro-form {
+  width: min(720px, 100%);
+  margin-top: 24px;
+}
+
+.cadastro-form ul.errorlist {
+  margin: 0;
+  padding: 0;
+  color: #a5392f;
+  font-size: .85rem;
+  list-style: none;
+}
+
+.form-actions {
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+.confirm-card,
+.empty-state {
+  width: min(620px, 100%);
+  padding: 32px;
+  text-align: center;
+}
+
+.confirm-card h1,
+.empty-state h2 {
+  margin: 14px 0 8px;
+}
+
+.confirm-card p,
+.empty-state p {
+  margin: 7px 0;
+  color: var(--muted);
+}
+
+.confirm-card form {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.warning-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--warn-bg);
+  color: var(--warn);
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.auth-layout {
+  min-height: calc(100vh - 150px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 470px);
+  align-items: center;
+  gap: clamp(35px, 8vw, 100px);
+}
+
+.auth-intro {
+  max-width: 570px;
+}
+
+.auth-intro h1 {
+  margin: 12px 0;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.08;
+}
+
+.auth-intro p,
+.auth-intro li {
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+.auth-intro ul {
+  margin: 20px 0 0;
+  padding-left: 20px;
+}
+
+.auth-kicker {
+  color: var(--brand);
+  font-size: .84rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.auth-card {
+  padding: 28px;
+}
+
+.auth-card h2 {
+  margin: 0 0 8px;
+}
+
+.auth-card .helptext,
+.auth-card ul {
+  margin: 0;
+  color: var(--muted);
+  font-size: .78rem;
+  line-height: 1.45;
+}
+
+.auth-card ul {
+  padding-left: 18px;
+}
+
+.auth-card .errorlist,
+.form-error {
+  padding: 10px 12px;
+  border-radius: 9px;
+  background: #fff0ee;
+  color: #9a3028;
+  list-style: none;
+}
+
+.auth-switch {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: .88rem;
+  text-align: center;
+}
+
+.auth-switch a {
+  color: var(--brand);
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .top-actions > a {
+    display: none;
+  }
+
+  .heading-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .heading-actions .button {
+    width: 100%;
+  }
+
+  .student-actions {
+    width: 100%;
+    margin-left: 65px;
+  }
+
+  .auth-layout {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .auth-intro h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .manage-heading,
+  .manage-footer,
+  .form-actions,
+  .confirm-card form {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .manage-heading {
+    height: auto;
+    padding-block: 16px;
+  }
+
+  .manage-heading .inline-actions {
+    justify-content: flex-start;
+  }
+
+  .manage-student {
+    grid-template-columns: 38px minmax(0, 1fr);
+  }
+
+  .manage-student .inline-actions {
+    grid-column: 2;
+    justify-content: flex-start;
+  }
+
+  .student-actions {
+    margin-left: 0;
+  }
+
+  .form-actions .button,
+  .confirm-card .button {
+    width: 100%;
+  }
+
+  .auth-card {
+    padding: 20px;
+  }
+}

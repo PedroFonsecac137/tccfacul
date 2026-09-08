@@ -1,0 +1,23 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}IncluiEdu{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'acompanhamento/css/app.css' %}">
+  <link rel="stylesheet" href="{% static 'acompanhamento/css/alignment.css' %}">
+  <link rel="stylesheet" href="{% static 'acompanhamento/css/polish.css' %}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{% url 'acompanhamento:painel' %}"><img class="brand-logo" src="{% static 'acompanhamento/img/logo.svg' %}" alt=""><span class="brand-name">Inclui<span>Edu</span></span></a>
+    {% if user.is_authenticated %}<nav class="top-actions" aria-label="Navegação principal"><a href="{% url 'acompanhamento:painel' %}">Acompanhamento</a><a href="{% url 'acompanhamento:gerenciar' %}">Gerenciar</a><div class="teacher"><span>{{ user.get_full_name|default:user.username }}</span><span class="avatar">{{ user.first_name|first|upper }}{{ user.last_name|first|upper }}</span></div><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="logout-button" type="submit">Sair</button></form></nav>{% endif %}
+  </header>
+  <main class="container">
+    {% for message in messages %}<div class="message">{{ message }}</div>{% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+  {% if user.is_authenticated %}<nav class="mobile-nav" aria-label="Navegação para celular"><a href="{% url 'acompanhamento:painel' %}"><span aria-hidden="true">⌂</span>Acompanhar</a><a href="{% url 'acompanhamento:gerenciar' %}"><span aria-hidden="true">▦</span>Gerenciar</a><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button type="submit"><span aria-hidden="true">↪</span>Sair</button></form></nav>{% endif %}
+</body>
+</html>

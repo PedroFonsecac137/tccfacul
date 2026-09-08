@@ -1,0 +1,8 @@
+{% extends "acompanhamento/base.html" %}
+{% block title %}{{ titulo }} · IncluiEdu{% endblock %}
+{% block content %}
+<a class="back" href="{% if tipo == 'aluno' and objeto %}{% url 'acompanhamento:aluno' objeto.id %}{% else %}{% url 'acompanhamento:gerenciar' %}{% endif %}">← Voltar</a>
+<header class="page-heading"><h1>{{ titulo }}</h1><p>{% if tipo == 'turma' %}Informe a identificação e o turno da turma.{% else %}Registre somente informações pedagógicas necessárias ao acompanhamento.{% endif %}</p></header>
+<form class="panel panel-body form cadastro-form" method="post">{% csrf_token %}{{ form.as_div }}<div class="form-actions"><a class="button secondary" href="{% url 'acompanhamento:gerenciar' %}">Cancelar</a><button class="button primary" type="submit">Salvar {{ tipo }}</button></div></form>
+{% endblock %}
+

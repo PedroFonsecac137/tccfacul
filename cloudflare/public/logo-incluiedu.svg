@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">IncluiEdu</title><desc id="desc">Livro aberto formando duas pessoas acolhidas</desc>
+  <defs><linearGradient id="fundo" x1="20" y1="15" x2="108" y2="114" gradientUnits="userSpaceOnUse"><stop stop-color="#8b2447"/><stop offset="1" stop-color="#561027"/></linearGradient></defs>
+  <rect x="4" y="4" width="120" height="120" rx="32" fill="url(#fundo)"/>
+  <circle cx="46" cy="42" r="9" fill="#f1c766"/><circle cx="82" cy="42" r="9" fill="#fff"/>
+  <path d="M25 58c15-5 28-1 39 9v34C53 91 40 87 25 91V58Z" fill="#f1c766"/>
+  <path d="M103 58c-15-5-28-1-39 9v34c11-10 24-14 39-10V58Z" fill="#fff"/>
+  <path d="M64 67v34" stroke="#d7a63e" stroke-width="4" stroke-linecap="round"/>
+</svg>

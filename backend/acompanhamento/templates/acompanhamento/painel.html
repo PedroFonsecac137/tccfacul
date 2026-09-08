@@ -1,0 +1,14 @@
+{% extends "acompanhamento/base.html" %}
+{% block content %}
+<header class="page-heading heading-actions"><div><h1>Acompanhamento dos alunos</h1><p>Escolha uma turma para visualizar dificuldades, evidências e próximos passos.</p></div><a class="button primary" href="{% url 'acompanhamento:aluno_novo' %}{% if turma %}?turma={{ turma.id }}{% endif %}">Adicionar aluno</a></header>
+<form class="filters" method="get">
+  <div class="field"><label for="turma">Turma selecionada</label><select id="turma" name="turma" onchange="this.form.submit()">{% for item in turmas %}<option value="{{ item.id }}" {% if turma.id == item.id %}selected{% endif %}>{{ item }}</option>{% endfor %}</select>{% if turma %}<small>{{ turma.alunos.count }} alunos · {{ turma.alunos.all|length }} em acompanhamento</small>{% endif %}</div>
+  <div class="field"><label for="busca">Buscar aluno</label><div class="search-row"><input id="busca" name="busca" value="{{ request.GET.busca }}" placeholder="Digite o nome"><button class="button secondary" type="submit">Buscar</button></div><small>Pesquise dentro da turma selecionada</small></div>
+</form>
+<section class="dashboard-grid">
+  <div class="panel"><div class="panel-heading"><h2>Alunos da turma</h2><span>{{ alunos|length }} encontrados</span></div>
+    <div class="student-list">{% for aluno in alunos %}<a class="student-row" href="{% url 'acompanhamento:aluno' aluno.id %}"><span class="avatar">{{ aluno.iniciais }}</span><span class="student-copy"><strong>{{ aluno.nome }}</strong><small>{{ aluno.area }}</small></span><span class="status {{ aluno.status }}">{{ aluno.get_status_display }}</span></a>{% empty %}<p class="empty">Nenhum aluno encontrado nesta turma.</p>{% endfor %}</div>
+  </div>
+  <aside class="panel guidance"><div class="panel-heading"><h2>Como começar</h2></div><div class="panel-body"><ol><li>Escolha a turma.</li><li>Selecione um aluno.</li><li>Consulte as evidências registradas.</li><li>Registre uma observação ou crie uma atividade.</li></ol><p class="notice">A IA oferece apoio pedagógico. A decisão e a revisão final permanecem com o professor.</p></div></aside>
+</section>
+{% endblock %}
