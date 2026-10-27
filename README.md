@@ -33,13 +33,10 @@ O projeto adota um Design System padronizado com contraste e acessibilidade gara
 
 | Documento | Localização | Descrição |
 |---|---|---|
-| 📽️ **Apresentação em PowerPoint (.pptx)** | [`docs/APRESENTACAO_TCC_INCLUIEDU.pptx`](docs/APRESENTACAO_TCC_INCLUIEDU.pptx) | Slides editáveis em PowerPoint no formato 16:9 Widescreen com paleta oficial |
-| 🖥️ **Slides de Apresentação (Interativos)** | [`docs/slides.html`](docs/slides.html) | Apresentação em tela cheia com mockups das telas, foco em IA, login e triagem |
-| 📊 **Slides de Apresentação em PDF (16:9)** | [`docs/SLIDES_APRESENTACAO_TCC.pdf`](docs/SLIDES_APRESENTACAO_TCC.pdf) | Slides em PDF formato paisagem pronto para apresentação e impressão |
-| 📕 **Manual Técnico em PDF (VS Code)** | [`docs/MANUAL_TECNICO_TCC_VS_CODE.pdf`](docs/MANUAL_TECNICO_TCC_VS_CODE.pdf) | Guia completo de navegação pelo código no VS Code, inventário de telas e resolução de problemas |
+| 📽️ **Apresentação em PowerPoint (.pptx)** | [`docs/APRESENTACAO_TCC_INCLUIEDU.pptx`](docs/APRESENTACAO_TCC_INCLUIEDU.pptx) | Slides oficiais resumidos em 6 slides (16:9 Widescreen) com paleta pastel |
+| 📕 **Manual Técnico em PDF (VS Code)** | [`docs/MANUAL_TECNICO_TCC_VS_CODE.pdf`](docs/MANUAL_TECNICO_TCC_VS_CODE.pdf) | Guia completo de navegação pelo código no VS Code, inventário de telas e solução de problemas |
 | 🗺️ **Mapa Completo de Telas** | [`docs/MAPA_DE_TELAS.md`](docs/MAPA_DE_TELAS.md) | Inventário pesquisável de rotas, componentes, arquivos e requisitos de acesso |
 | 🏛️ **Estrutura Organizacional** | [`docs/ESTRUTURA_DO_PROJETO.md`](docs/ESTRUTURA_DO_PROJETO.md) | Detalhamento da arquitetura de pastas, design tokens e fluxo de dados |
-| ⚙️ **Scripts Geradores em Python** | [`docs/gerar_slides_pptx.py`](docs/gerar_slides_pptx.py), `gerar_manual_pdf.py` | Scripts automatizados para reconstruir os arquivos de apresentação e manual |
 
 > **Ambiente Live em Produção (Cloudflare Edge):**  
 > 🔗 [https://incluiedu.canalinterestelarc137.workers.dev](https://incluiedu.canalinterestelarc137.workers.dev)
@@ -64,10 +61,10 @@ tcc/
 │   ├── src/                  # Worker com rotas da API REST
 │   └── wrangler.jsonc        # Configuração do Cloudflare Workers
 ├── docs/                     # Manuais técnicos e documentação oficial
+│   ├── APRESENTACAO_TCC_INCLUIEDU.pptx # Apresentação oficial em PowerPoint
 │   ├── MANUAL_TECNICO_TCC_VS_CODE.pdf # Manual técnico para navegação no VS Code
 │   ├── ESTRUTURA_DO_PROJETO.md        # Guia de pastas e arquitetura
-│   ├── MAPA_DE_TELAS.md               # Inventário de rotas e telas
-│   └── gerar_manual_pdf.py            # Script gerador do PDF oficial
+│   └── MAPA_DE_TELAS.md               # Inventário de rotas e telas
 ├── .env.example              # Modelo de variáveis de ambiente ilustrativas
 ├── .gitignore                # Regras de exclusão para Git
 └── README.md                 # Documentação do projeto
