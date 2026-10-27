@@ -86,33 +86,28 @@ def gerar_apresentacao_resumida_pptx(caminho_saida="docs/APRESENTACAO_TCC_INCLUI
     slide1 = prs.slides.add_slide(blank_layout)
     adicionar_cabecalho_decorativo(slide1, prs)
 
-    # 1. Logo oficial posicionado com tamanho controlado no topo esquerdo
+    # 1. Logo oficial posicionado no topo esquerdo com respiro amplo
     caminho_logo = "cloudflare/public/logo-incluiedu.png"
     if os.path.exists(caminho_logo):
-        slide1.shapes.add_picture(caminho_logo, Inches(1.0), Inches(0.8), width=Inches(3.2))
+        slide1.shapes.add_picture(caminho_logo, Inches(1.0), Inches(0.8), width=Inches(3.4))
 
-    # 2. Badge TCC posicionado abaixo do logo com respiro claro
-    badge = slide1.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(1.0), Inches(2.2), Inches(4.2), Inches(0.38))
-    badge.fill.solid()
-    badge.fill.fore_color.rgb = COLOR_MINT
-    badge.line.color.rgb = COLOR_MINT
-    p_badge = badge.text_frame.paragraphs[0]
-    p_badge.text = "TRABALHO DE CONCLUSÃO DE CURSO (TCC)"
-    p_badge.font.size = Pt(10.5)
-    p_badge.font.bold = True
-    p_badge.font.color.rgb = COLOR_PRIMARY
-    p_badge.alignment = PP_ALIGN.CENTER
-
-    # 3. Título Principal sem encostar no logo nem no badge
-    tx_titulo = slide1.shapes.add_textbox(Inches(1.0), Inches(2.8), Inches(11.3), Inches(2.2))
+    # 2. Título Principal posicionado abaixo do logo com respiro generoso
+    tx_titulo = slide1.shapes.add_textbox(Inches(1.0), Inches(2.3), Inches(11.3), Inches(2.6))
     tf_titulo = tx_titulo.text_frame
     tf_titulo.word_wrap = True
 
-    p1 = tf_titulo.paragraphs[0]
+    p_tcc = tf_titulo.paragraphs[0]
+    p_tcc.text = "TRABALHO DE CONCLUSÃO DE CURSO (TCC)"
+    p_tcc.font.size = Pt(11)
+    p_tcc.font.bold = True
+    p_tcc.font.color.rgb = COLOR_PRIMARY
+
+    p1 = tf_titulo.add_paragraph()
     p1.text = "IncluiEdu: Plataforma Digital para Gestão do PEI,"
     p1.font.size = Pt(28)
     p1.font.bold = True
     p1.font.color.rgb = COLOR_PRIMARY
+    p1.space_before = Pt(6)
 
     p2 = tf_titulo.add_paragraph()
     p2.text = "Inclusão Escolar e Atividades Adaptadas com IA"
@@ -366,27 +361,26 @@ def gerar_apresentacao_resumida_pptx(caminho_saida="docs/APRESENTACAO_TCC_INCLUI
     slide5 = prs.slides.add_slide(blank_layout)
     adicionar_cabecalho_decorativo(slide5, prs)
 
-    badge_ia = slide5.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(1.0), Inches(0.4), Inches(5.8), Inches(0.35))
-    badge_ia.fill.solid()
-    badge_ia.fill.fore_color.rgb = COLOR_PINK
-    badge_ia.line.color.rgb = COLOR_PINK
-    p_bia = badge_ia.text_frame.paragraphs[0]
-    p_bia.text = "⭐ PARTE MAIS IMPORTANTE DO PROJETO"
-    p_bia.font.size = Pt(10.5)
-    p_bia.font.bold = True
-    p_bia.font.color.rgb = RGBColor(0x83, 0x18, 0x43)
-
-    tx5 = slide5.shapes.add_textbox(Inches(1.0), Inches(0.85), Inches(11.3), Inches(1.0))
+    tx5 = slide5.shapes.add_textbox(Inches(1.0), Inches(0.55), Inches(11.3), Inches(1.3))
     tf5 = tx5.text_frame
-    p_tit = tf5.paragraphs[0]
+    p_destaque = tf5.paragraphs[0]
+    p_destaque.text = "⭐ PARTE MAIS IMPORTANTE DO PROJETO"
+    p_destaque.font.size = Pt(11)
+    p_destaque.font.bold = True
+    p_destaque.font.color.rgb = RGBColor(0x9F, 0x12, 0x39)
+
+    p_tit = tf5.add_paragraph()
     p_tit.text = "Criação de Atividades Pedagógicas Adaptadas com IA"
     p_tit.font.size = Pt(24)
     p_tit.font.bold = True
     p_tit.font.color.rgb = COLOR_PRIMARY
+    p_tit.space_before = Pt(3)
+
     p_sub5 = tf5.add_paragraph()
     p_sub5.text = "Como a IA transforma horas de trabalho manual em minutos de precisão para cada estudante."
-    p_sub5.font.size = Pt(12.5)
+    p_sub5.font.size = Pt(12)
     p_sub5.font.color.rgb = COLOR_MUTED
+    p_sub5.space_before = Pt(4)
 
     # Coluna Esquerda: Fluxo em 3 Etapas Simples
     c_etapas = criar_card(slide5, Inches(1.0), Inches(1.9), Inches(5.6), Inches(4.7), COLOR_WHITE, COLOR_PINK)
