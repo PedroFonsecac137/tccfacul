@@ -6,13 +6,6 @@ function authView(mode = "login") {
   app.innerHTML = `
     <section class="panel auth">
       <div class="auth-copy">
-        <div class="palette-bar">
-          <div class="palette-chip" style="background:#B3DDBC" title="Verde Pastel #B3DDBC"><span>#B3DDBC</span></div>
-          <div class="palette-chip" style="background:#FFF5AD" title="Amarelo Pastel #FFF5AD"><span>#FFF5AD</span></div>
-          <div class="palette-chip" style="background:#EEC1D8" title="Rosa Pastel #EEC1D8"><span>#EEC1D8</span></div>
-          <div class="palette-chip" style="background:#B4D6DF" title="Azul Pastel #B4D6DF"><span>#B4D6DF</span></div>
-          <div class="palette-chip" style="background:#878787" title="Cinza Neutro #878787"><span>#878787</span></div>
-        </div>
         <img class="auth-brand-logo" src="/logo-incluiedu.png" alt="IncluiEdu" style="max-width: 210px; height: auto; margin-bottom: 22px; display: block;" />
         <h1>Ensino inclusivo com acompanhamento de verdade.</h1>
         <p>Escola e família acompanhando juntos cada evolução.</p>
