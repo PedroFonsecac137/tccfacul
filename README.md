@@ -27,11 +27,27 @@ O projeto adota um Design System padronizado com contraste e acessibilidade gara
 
 ---
 
+---
+
+## 📚 Documentação Técnica e Manuais
+
+| Documento | Localização | Descrição |
+|---|---|---|
+| 📕 **Manual Técnico em PDF (VS Code)** | [`docs/MANUAL_TECNICO_TCC_VS_CODE.pdf`](docs/MANUAL_TECNICO_TCC_VS_CODE.pdf) | Guia completo de navegação pelo código no VS Code, inventário de telas e resolução de problemas |
+| 🗺️ **Mapa Completo de Telas** | [`docs/MAPA_DE_TELAS.md`](docs/MAPA_DE_TELAS.md) | Inventário pesquisável de rotas, componentes, arquivos e requisitos de acesso |
+| 🏛️ **Estrutura Organizacional** | [`docs/ESTRUTURA_DO_PROJETO.md`](docs/ESTRUTURA_DO_PROJETO.md) | Detalhamento da arquitetura de pastas, design tokens e fluxo de dados |
+| ⚙️ **Script Gerador do PDF** | [`docs/gerar_manual_pdf.py`](docs/gerar_manual_pdf.py) | Script Python automatizado para reconstruir o manual em PDF (`python docs/gerar_manual_pdf.py`) |
+
+> **Ambiente Live em Produção (Cloudflare Edge):**  
+> 🔗 [https://incluiedu.canalinterestelarc137.workers.dev](https://incluiedu.canalinterestelarc137.workers.dev)
+
+---
+
 ## 📁 Estrutura de Pastas do Repositório
 
 ```text
 tcc/
-├── backend/                  # Aplicação em Django
+├── backend/                  # Aplicação em Django (Server-Side MVT)
 │   ├── acompanhamento/       # App principal (modelos, views, static, templates)
 │   ├── config/               # Configurações do Django (settings, urls, wsgi)
 │   ├── telas/                # Templates centralizados e organizados
@@ -39,11 +55,16 @@ tcc/
 ├── cloudflare/               # Aplicação moderna Cloudflare Workers SPA
 │   ├── migrations/           # Migrações SQL do Cloudflare D1
 │   ├── public/               # Assets estáticos (HTML, CSS global, JS e Telas)
-│   │   ├── telas/            # Módulos de telas do SPA
-│   │   ├── app.css           # Design System centralizado
+│   │   ├── telas/            # Módulos de telas do SPA (login, painel, prontuario, modais)
+│   │   ├── app.css           # Design System centralizado (paleta pastel)
 │   │   └── index.html        # Ponto de entrada do SPA
 │   ├── src/                  # Worker com rotas da API REST
 │   └── wrangler.jsonc        # Configuração do Cloudflare Workers
+├── docs/                     # Manuais técnicos e documentação oficial
+│   ├── MANUAL_TECNICO_TCC_VS_CODE.pdf # Manual técnico para navegação no VS Code
+│   ├── ESTRUTURA_DO_PROJETO.md        # Guia de pastas e arquitetura
+│   ├── MAPA_DE_TELAS.md               # Inventário de rotas e telas
+│   └── gerar_manual_pdf.py            # Script gerador do PDF oficial
 ├── .env.example              # Modelo de variáveis de ambiente ilustrativas
 ├── .gitignore                # Regras de exclusão para Git
 └── README.md                 # Documentação do projeto
