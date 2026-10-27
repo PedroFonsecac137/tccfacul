@@ -33,12 +33,13 @@ O projeto adota um Design System padronizado com contraste e acessibilidade gara
 
 | Documento | Localização | Descrição |
 |---|---|---|
+| 📽️ **Apresentação em PowerPoint (.pptx)** | [`docs/APRESENTACAO_TCC_INCLUIEDU.pptx`](docs/APRESENTACAO_TCC_INCLUIEDU.pptx) | Slides editáveis em PowerPoint no formato 16:9 Widescreen com paleta oficial |
 | 🖥️ **Slides de Apresentação (Interativos)** | [`docs/slides.html`](docs/slides.html) | Apresentação em tela cheia com mockups das telas, foco em IA, login e triagem |
 | 📊 **Slides de Apresentação em PDF (16:9)** | [`docs/SLIDES_APRESENTACAO_TCC.pdf`](docs/SLIDES_APRESENTACAO_TCC.pdf) | Slides em PDF formato paisagem pronto para apresentação e impressão |
 | 📕 **Manual Técnico em PDF (VS Code)** | [`docs/MANUAL_TECNICO_TCC_VS_CODE.pdf`](docs/MANUAL_TECNICO_TCC_VS_CODE.pdf) | Guia completo de navegação pelo código no VS Code, inventário de telas e resolução de problemas |
 | 🗺️ **Mapa Completo de Telas** | [`docs/MAPA_DE_TELAS.md`](docs/MAPA_DE_TELAS.md) | Inventário pesquisável de rotas, componentes, arquivos e requisitos de acesso |
 | 🏛️ **Estrutura Organizacional** | [`docs/ESTRUTURA_DO_PROJETO.md`](docs/ESTRUTURA_DO_PROJETO.md) | Detalhamento da arquitetura de pastas, design tokens e fluxo de dados |
-| ⚙️ **Scripts Geradores em Python** | [`docs/gerar_manual_pdf.py`](docs/gerar_manual_pdf.py) e [`docs/gerar_slides_pdf.py`](docs/gerar_slides_pdf.py) | Scripts automatizados para reconstruir os PDFs de manual e slides |
+| ⚙️ **Scripts Geradores em Python** | [`docs/gerar_slides_pptx.py`](docs/gerar_slides_pptx.py), `gerar_manual_pdf.py` | Scripts automatizados para reconstruir os arquivos de apresentação e manual |
 
 > **Ambiente Live em Produção (Cloudflare Edge):**  
 > 🔗 [https://incluiedu.canalinterestelarc137.workers.dev](https://incluiedu.canalinterestelarc137.workers.dev)
