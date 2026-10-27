@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apresentação TCC — Sistema IncluiEdu</title>
+  <style>
+    :root {
+      --pastel-green: #B3DDBC;
+      --pastel-yellow: #FFF5AD;
+      --pastel-pink: #EEC1D8;
+      --pastel-blue: #B4D6DF;
+      --neutral-gray: #878787;
+      --dark-green: #1F4E36;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --bg-light: #F8FAFC;
+      --bg-card: #FFFFFF;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.09), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #0F172A;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* Barra Superior de Controles e Progresso */
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 48px;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      color: #F8FAFC;
+    }
+
+    .progress-bar-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--pastel-green), var(--pastel-blue), var(--pastel-pink));
+      width: 10%;
+      transition: width 0.3s ease;
+    }
+
+    .top-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--pastel-green);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-ctrl {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #FFF;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .btn-ctrl:hover {
+      background: var(--pastel-green);
+      color: var(--dark-green);
+      border-color: var(--pastel-green);
+    }
+
+    .slide-counter {
+      font-size: 13px;
+      color: #94A3B8;
+      font-weight: 600;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    /* Container do Slide (Proporção 16:9) */
+    .deck-container {
+      width: 92vw;
+      max-width: 1240px;
+      height: 80vh;
+      max-height: 698px;
+      background: var(--bg-light);
+      border-radius: 16px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+      margin-top: 24px;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 40px 56px;
+      display: none;
+      flex-direction: column;
+      background: #FFFFFF;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      display: flex;
+      animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Tipografia dos Slides */
+    .slide-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--pastel-blue);
+      color: #0F172A;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+
+    .slide-badge.highlight {
+      background: var(--pastel-pink);
+    }
+
+    .slide-badge.green {
+      background: var(--pastel-green);
+      color: var(--dark-green);
+    }
+
+    .slide-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--dark-green);
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .slide-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    /* Layouts Internos em Grid */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      flex: 1;
+      align-items: center;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      flex: 1;
+    }
+
+    .grid-feature {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      flex: 1;
+      align-items: center;
+    }
+
+    /* Cards e Componentes Visuais */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-highlight {
+      border-left: 6px solid var(--pastel-green);
+    }
+
+    .card-pink {
+      border-left: 6px solid var(--pastel-pink);
+    }
+
+    .card-yellow {
+      border-left: 6px solid var(--pastel-yellow);
+    }
+
+    .card-blue {
+      border-left: 6px solid var(--pastel-blue);
+    }
+
+    .card h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card p, .card ul {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    ul.bullet-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul.bullet-list li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    ul.bullet-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--dark-green);
+      font-size: 20px;
+      line-height: 1;
+      top: -2px;
+    }
+
+    /* Mockups de Telas em CSS Nativo */
+    .browser-frame {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 12px;
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .browser-header {
+      background: #F1F5F9;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #CBD5E1;
+    }
+    .dot.red { background: #F87171; }
+    .dot.yellow { background: #FBBF24; }
+    .dot.green { background: #34D399; }
+
+    .browser-url {
+      background: #FFFFFF;
+      border-radius: 4px;
+      padding: 3px 10px;
+      font-size: 11px;
+      color: #64748B;
+      flex: 1;
+      margin-left: 8px;
+      border: 1px solid #E2E8F0;
+      font-family: monospace;
+    }
+
+    .browser-content {
+      padding: 16px;
+      background: #FAFBFD;
+    }
+
+    /* Elementos das Telas Simuladas */
+    .mini-auth-box {
+      max-width: 320px;
+      margin: 10px auto;
+      background: #FFFFFF;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .mini-tabs {
+      display: flex;
+      margin-bottom: 12px;
+      border-bottom: 2px solid #E2E8F0;
+    }
+
+    .mini-tab {
+      flex: 1;
+      text-align: center;
+      padding: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .mini-tab.active {
+      color: var(--dark-green);
+      border-bottom: 2px solid var(--pastel-green);
+      margin-bottom: -2px;
+    }
+
+    .mini-role-select {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .mini-role-btn {
+      flex: 1;
+      padding: 8px 4px;
+      font-size: 11px;
+      text-align: center;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: #FFFFFF;
+      font-weight: 600;
+    }
+
+    .mini-role-btn.selected {
+      background: var(--pastel-green);
+      border-color: var(--pastel-green);
+      color: var(--dark-green);
+    }
+
+    .mini-input {
+      width: 100%;
+      padding: 7px 10px;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      font-size: 11px;
+      margin-bottom: 8px;
+      background: #F8FAFC;
+    }
+
+    .mini-btn {
+      width: 100%;
+      padding: 8px;
+      background: var(--pastel-green);
+      color: var(--dark-green);
+      font-weight: 700;
+      border: none;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    /* Badges de Status dos Alunos */
+    .status-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .status-badge.green { background: var(--pastel-green); color: var(--dark-green); }
+    .status-badge.yellow { background: var(--pastel-yellow); color: #854D0E; }
+    .status-badge.pink { background: var(--pastel-pink); color: #831843; }
+
+    /* Folha A4 de Atividade */
+    .a4-sheet {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 6px;
+      padding: 16px;
+      box-shadow: var(--shadow-md);
+      font-size: 12px;
+    }
+
+    .a4-header {
+      border-bottom: 2px solid var(--pastel-blue);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .a4-question {
+      background: #F8FAFC;
+      border-left: 3px solid var(--pastel-green);
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* Rodapé dos Slides */
+    .slide-footer {
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Modo de Impressão */
+    @media print {
+      body {
+        background: #FFFFFF;
+        overflow: visible;
+      }
+      .top-bar { display: none; }
+      .deck-container {
+        width: 100%;
+        max-width: none;
+        height: auto;
+        max-height: none;
+        box-shadow: none;
+        margin: 0;
+      }
+      .slide {
+        display: flex !important;
+        page-break-after: always;
+        height: 100vh;
+        border: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra Superior -->
+  <div class="top-bar">
+    <div class="top-title">
+      <img src="../cloudflare/public/logo-icone.png" height="24" alt="Ícone">
+      <span>IncluiEdu — Apresentação de TCC</span>
+    </div>
+    <div class="controls">
+      <button class="btn-ctrl" onclick="prevSlide()" title="Slide Anterior (Seta Esquerda)">◀ Anterior</button>
+      <span class="slide-counter" id="counter">1 / 10</span>
+      <button class="btn-ctrl" onclick="nextSlide()" title="Próximo Slide (Seta Direita / Espaço)">Próximo ▶</button>
+      <button class="btn-ctrl" onclick="toggleFullscreen()" title="Tela Cheia (F)">⛶ Tela Cheia</button>
+      <button class="btn-ctrl" onclick="window.print()" title="Imprimir / Salvar PDF (Ctrl + P)">🖨️ PDF</button>
+    </div>
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
+
+  <!-- Deck de Slides -->
+  <div class="deck-container">
+
+    <!-- SLIDE 1: CAPA -->
+    <div class="slide active">
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+        <img src="../cloudflare/public/logo-incluiedu.png" alt="Logo IncluiEdu" style="height: 68px; margin-bottom: 24px;">
+        <span class="slide-badge green">Trabalho de Conclusão de Curso (TCC)</span>
+        <h1 style="font-size: 34px; font-weight: 800; color: var(--dark-green); max-width: 860px; line-height: 1.25; margin-bottom: 14px;">
+          Plataforma Digital de Acompanhamento Pedagógico, Gestão do PEI e Inclusão Escolar com IA
+        </h1>
+        <p style="font-size: 17px; color: var(--text-muted); max-width: 720px; line-height: 1.6; margin-bottom: 30px;">
+          Conectando professores, estudantes com necessidades educacionais específicas e famílias por meio de tecnologia moderna e inteligência artificial adaptativa.
+        </p>
+
+        <div style="display: flex; gap: 32px; background: var(--bg-light); padding: 14px 28px; border-radius: 12px; border: 1px solid var(--border-color);">
+          <div style="text-align: left;">
+            <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Tecnologia</div>
+            <div style="font-size: 13.5px; font-weight: 600; color: var(--text-main);">Cloudflare Edge SPA & Django</div>
+          </div>
+          <div style="border-left: 1px solid var(--border-color); height: 32px;"></div>
+          <div style="text-align: left;">
+            <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Paleta Oficial</div>
+            <div style="font-size: 13.5px; font-weight: 600; color: var(--dark-green);">Design System Pastel Inclusivo</div>
+          </div>
+          <div style="border-left: 1px solid var(--border-color); height: 32px;"></div>
+          <div style="text-align: left;">
+            <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Ambiente Live</div>
+            <div style="font-size: 13.5px; font-weight: 600; color: #2563EB;">incluiedu.workers.dev</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Engenharia de Software / Ciência da Computação</span>
+        <span>Outubro de 2026</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: O PROBLEMA E A MOTIVAÇÃO -->
+    <div class="slide">
+      <span class="slide-badge">Contexto & Motivação</span>
+      <h2 class="slide-title">Os Desafios Reais da Inclusão Escolar e do PEI</h2>
+      <p class="slide-subtitle">A rotina dos educadores enfrenta barreiras diárias para viabilizar um acompanhamento individualizado eficiente.</p>
+
+      <div class="grid-3">
+        <div class="card card-pink">
+          <h4>📑 Sobrecarga Burocrática</h4>
+          <p>
+            O Plano Educacional Individualizado (PEI) exige preenchimento constante de fichas físicas e relatórios dispersos, consumindo horas preciosas do educador.
+          </p>
+        </div>
+        <div class="card card-yellow">
+          <h4>⏳ Dificuldade na Criação de Atividades</h4>
+          <p>
+            Adaptar materiais pedagógicos para estudantes com TEA, TDAH ou deficiência intelectual exige criar exercícios sob medida do zero para cada nível cognitivo.
+          </p>
+        </div>
+        <div class="card card-blue">
+          <h4>👪 Afastamento da Família</h4>
+          <p>
+            Os responsáveis muitas vezes não têm acesso ao progresso escolar diário, limitando a continuidade das intervenções pedagógicas no ambiente domiciliar.
+          </p>
+        </div>
+      </div>
+
+      <div class="card card-highlight" style="margin-top: 20px; background: #FAFDFB;">
+        <h4 style="color: var(--dark-green);">🎯 Objetivo do Projeto IncluiEdu</h4>
+        <p style="color: var(--text-main);">
+          Prover uma plataforma unificada e intuitiva que elimine o retrabalho dos professores, automatize a <b>geração de atividades adaptadas via IA</b>, centralize a <b>separação e triagem de estudantes por status</b> e aproxime os responsáveis da rotina pedagógica.
+        </p>
+      </div>
+
+      <div class="slide-footer">
+        <span>IncluiEdu — Diagnóstico do Cenário Educacional</span>
+        <span>Slide 2 / 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: TELA 1 - AUTENTICAÇÃO E PERFIS (LOGIN) -->
+    <div class="slide">
+      <span class="slide-badge green">Acesso ao Sistema</span>
+      <h2 class="slide-title">1. Tela de Login e Segregação de Perfis</h2>
+      <p class="slide-subtitle">Experiência simplificada e segura com fluxos distintos para Professores e Responsáveis/Família.</p>
+
+      <div class="grid-feature">
+        <div>
+          <ul class="bullet-list">
+            <li>
+              <b>Diferenciação Visual Clara:</b> Na aba de cadastro, o usuário escolhe entre o perfil de <b>Professor</b> (gestor de turmas e prontuários) ou <b>Responsável</b> (portal da família).
+            </li>
+            <li>
+              <b>Segurança com JWT:</b> Autenticação criptográfica sem cookies complexos, permitindo que a aplicação seja executada com alta velocidade em qualquer dispositivo.
+            </li>
+            <li>
+              <b>Redirecionamento Inteligente:</b> Professores acessam o painel analítico com filtros e métricas, enquanto os pais são direcionados para a visão simplificada com tarefas e evolução do filho.
+            </li>
+            <li>
+              <b>Paleta Pastel Acolhedora:</b> Reduz a carga cognitiva e cria uma atmosfera agradável para educadores e famílias.
+            </li>
+          </ul>
+
+          <div style="background: var(--bg-light); border-left: 4px solid var(--pastel-green); padding: 12px; border-radius: 6px; margin-top: 16px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--dark-green); text-transform: uppercase;">Localização no Código (VS Code)</div>
+            <div style="font-family: monospace; font-size: 12px; color: var(--text-main); margin-top: 4px;">cloudflare/public/telas/login.js (Função: renderLogin)</div>
+          </div>
+        </div>
+
+        <!-- Mockup Visual da Tela de Login -->
+        <div class="browser-frame">
+          <div class="browser-header">
+            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            <span class="browser-url">https://incluiedu.workers.dev/#/auth</span>
+          </div>
+          <div class="browser-content">
+            <div class="mini-auth-box">
+              <div style="text-align: center; margin-bottom: 10px;">
+                <img src="../cloudflare/public/logo-incluiedu.png" alt="Logo" style="height: 32px;">
+              </div>
+              <div class="mini-tabs">
+                <div class="mini-tab">Entrar</div>
+                <div class="mini-tab active">Criar Conta</div>
+              </div>
+              <div style="font-size: 10.5px; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;">Selecione seu perfil:</div>
+              <div class="mini-role-select">
+                <div class="mini-role-btn selected">🎓 Sou Professor</div>
+                <div class="mini-role-btn">👨‍👩‍👦 Sou Família</div>
+              </div>
+              <input type="text" class="mini-input" value="Ana Carolina Silveira" readonly>
+              <input type="text" class="mini-input" value="professora@escola.gov.br" readonly>
+              <input type="password" class="mini-input" value="••••••••" readonly>
+              <button class="mini-btn">Cadastrar no IncluiEdu</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>IncluiEdu — Módulo de Autenticação</span>
+        <span>Slide 3 / 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: TELA 2 - SEPARAÇÃO DOS ALUNOS E PAINEL DO PROFESSOR -->
+    <div class="slide">
+      <span class="slide-badge green">Gestão & Triagem</span>
+      <h2 class="slide-title">2. Separação de Alunos, Turmas e Filtros Pedagógicos</h2>
+      <p class="slide-subtitle">Acesso instantâneo ao status de cada estudante com filtros dinâmicos e métricas em tempo real.</p>
+
+      <div class="grid-feature">
+        <div>
+          <ul class="bullet-list">
+            <li>
+              <b>Triagem Rápida por Status Oficial:</b>
+              <div style="display: flex; gap: 8px; margin: 8px 0;">
+                <span class="status-badge green">🟢 Evoluindo</span>
+                <span class="status-badge yellow">🟡 Acompanhar</span>
+                <span class="status-badge pink">🌸 Atenção</span>
+              </div>
+              Permite aos professores identificar com um olhar quais alunos necessitam de intervenção pedagógica prioritária.
+            </li>
+            <li>
+              <b>Filtro por Turma e Busca Instantânea:</b> O professor pode isolar turmas específicas (ex: "5º Ano A") ou digitar o nome/diagnóstico do estudante com filtragem sem recarregamento.
+            </li>
+            <li>
+              <b>Métricas no Topo (KPIs):</b> Contadores automáticos com Total de Estudantes, Alunos em Acompanhamento e Alertas Ativos.
+            </li>
+          </ul>
+
+          <div style="background: var(--bg-light); border-left: 4px solid var(--pastel-blue); padding: 12px; border-radius: 6px; margin-top: 14px;">
+            <div style="font-size: 11px; font-weight: 700; color: #1E3A8A; text-transform: uppercase;">Localização no Código (VS Code)</div>
+            <div style="font-family: monospace; font-size: 12px; color: var(--text-main); margin-top: 4px;">cloudflare/public/telas/painel-professor.js (renderTeacherDashboard)</div>
+          </div>
+        </div>
+
+        <!-- Mockup Visual da Separação de Alunos -->
+        <div class="browser-frame">
+          <div class="browser-header">
+            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            <span class="browser-url">https://incluiedu.workers.dev/#/dashboard</span>
+          </div>
+          <div class="browser-content" style="padding: 12px;">
+            <!-- KPIs -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 10px;">
+              <div style="background: #FFF; padding: 6px 10px; border-radius: 6px; border-left: 3px solid var(--pastel-green);">
+                <div style="font-size: 9px; color: var(--text-muted);">Estudantes</div>
+                <div style="font-size: 14px; font-weight: 800; color: var(--dark-green);">18</div>
+              </div>
+              <div style="background: #FFF; padding: 6px 10px; border-radius: 6px; border-left: 3px solid var(--pastel-yellow);">
+                <div style="font-size: 9px; color: var(--text-muted);">Acompanhar</div>
+                <div style="font-size: 14px; font-weight: 800; color: #854D0E;">7</div>
+              </div>
+              <div style="background: #FFF; padding: 6px 10px; border-radius: 6px; border-left: 3px solid var(--pastel-pink);">
+                <div style="font-size: 9px; color: var(--text-muted);">Alertas</div>
+                <div style="font-size: 14px; font-weight: 800; color: #831843;">3</div>
+              </div>
+            </div>
+
+            <!-- Lista de Estudantes com Separação de Status -->
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <div style="background: #FFF; padding: 8px 10px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color);">
+                <div>
+                  <div style="font-weight: 700; font-size: 12px;">Lucas Gabriel Santos</div>
+                  <div style="font-size: 10px; color: var(--text-muted);">5º Ano B • TEA Nível 1 (CID F84.0)</div>
+                </div>
+                <span class="status-badge green">🟢 Evoluindo</span>
+              </div>
+
+              <div style="background: #FFF; padding: 8px 10px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color);">
+                <div>
+                  <div style="font-weight: 700; font-size: 12px;">Sofia Helena Costa</div>
+                  <div style="font-size: 10px; color: var(--text-muted);">4º Ano A • TDAH Misto (CID F90.2)</div>
+                </div>
+                <span class="status-badge yellow">🟡 Acompanhar</span>
+              </div>
+
+              <div style="background: #FFF; padding: 8px 10px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color);">
+                <div>
+                  <div style="font-weight: 700; font-size: 12px;">Mateus Alves Ribeiro</div>
+                  <div style="font-size: 10px; color: var(--text-muted);">3º Ano C • Dislexia / Dificuldade Leitura</div>
+                </div>
+                <span class="status-badge pink">🌸 Atenção</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>IncluiEdu — Triagem e Separação de Estudantes</span>
+        <span>Slide 4 / 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: TELA 3 - PRONTUÁRIO PEI E HISTÓRICO -->
+    <div class="slide">
+      <span class="slide-badge">Acompanhamento Individual</span>
+      <h2 class="slide-title">3. Prontuário PEI e Linha do Tempo de Evidências</h2>
+      <p class="slide-subtitle">Centralização do dossiê pedagógico de cada estudante com ações rápidas em um clique.</p>
+
+      <div class="grid-2">
+        <div>
+          <ul class="bullet-list">
+            <li>
+              <b>Atualização de Status com 1 Clique:</b> O professor pode alterar a situação do aluno entre 'Evoluindo', 'Acompanhar' e 'Atenção' instantaneamente via PATCH assíncrono.
+            </li>
+            <li>
+              <b>Linha do Tempo Pedagógica:</b> Registro cronológico de observações, evidências de aprendizagem e interações em sala com marcação de data e categoria.
+            </li>
+            <li>
+              <b>Geração de Convite Familiar:</b> Criação de código seguro de 6 dígitos (ex: <code>EDU-784</code>) para que a família vincule a conta do filho no portal domiciliar.
+            </li>
+            <li>
+              <b>Atribuição de Tarefas:</b> Envio direto de atividades recomendadas para a família realizar em casa.
+            </li>
+          </ul>
+        </div>
+
+        <div class="card" style="background: #FAFDFB;">
+          <h4 style="color: var(--dark-green); margin-bottom: 12px;">⚡ Fluxo de Ações do Prontuário</h4>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="padding: 10px; background: #FFF; border-radius: 8px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 20px;">🤖</span>
+              <div>
+                <div style="font-weight: 700; font-size: 13px;">Gerar Atividade com IA</div>
+                <div style="font-size: 11px; color: var(--text-muted);">Cria exercícios sob medida para o perfil do estudante</div>
+              </div>
+            </div>
+            <div style="padding: 10px; background: #FFF; border-radius: 8px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 20px;">🔑</span>
+              <div>
+                <div style="font-weight: 700; font-size: 13px;">Conectar com a Família</div>
+                <div style="font-size: 11px; color: var(--text-muted);">Gera código de 6 dígitos para o responsável</div>
+              </div>
+            </div>
+            <div style="padding: 10px; background: #FFF; border-radius: 8px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 20px;">📝</span>
+              <div>
+                <div style="font-weight: 700; font-size: 13px;">Nova Evidência do PEI</div>
+                <div style="font-size: 11px; color: var(--text-muted);">Salva notas de evolução comportamental e acadêmica</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>IncluiEdu — Dossiê Pedagógico Individualizado</span>
+        <span>Slide 5 / 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: CRIAÇÃO DE ATIVIDADES COM IA (PARTE MAIS IMPORTANTE - DESTAQUE) -->
+    <div class="slide" style="background: linear-gradient(180deg, #FFFFFF 0%, #F5FBF7 100%);">
+      <span class="slide-badge highlight" style="background: var(--pastel-pink); color: #831843; font-weight: 800;">
+        ⭐ O GRANDE DIFERENCIAL DO PROJETO (PARTE MAIS IMPORTANTE)
+      </span>
+      <h2 class="slide-title" style="font-size: 30px;">
+        4. Criação de Atividades Pedagógicas Adaptadas com IA
+      </h2>
+      <p class="slide-subtitle">
+        Como a inteligência artificial generativa transforma horas de trabalho manual em minutos de alta precisão pedagógica.
+      </p>
+
+      <div class="grid-feature">
+        <div>
+          <div class="card card-highlight" style="margin-bottom: 14px; background: #FFFFFF;">
+            <h4 style="color: var(--dark-green);">Por que esta é a funcionalidade mais relevante?</h4>
+            <p>
+              Educadores inclusivos costumam passar noites elaborando adaptações visuais e textuais para que estudantes com NEE consigam acompanhar o conteúdo regular. O <b>IncluiEdu</b> resolve essa dor com tecnologia de ponta.
+            </p>
+          </div>
+
+          <ul class="bullet-list">
+            <li>
+              <b>Contexto Clínico Automático:</b> O sistema combina a disciplina e o objetivo de aprendizagem com o diagnóstico real do estudante (ex: TEA, TDAH, Baixa Visão).
+            </li>
+            <li>
+              <b>Níveis Cognitivos Selecionáveis:</b>
+              Adaptação Leve (reforço textual), Média (apoio visual e enunciados curtos) ou Alta (passo a passo com linguagem concreta).
+            </li>
+            <li>
+              <b>Edge AI & LLM Local:</b>
+              Utiliza o modelo <b>Llama 3.1</b> via Cloudflare Workers AI (ou <b>Ollama</b> no backend Django) sem custo de licença proprietária.
+            </li>
+            <li>
+              <b>Impressão Imediata em Folha A4:</b>
+              Formatação com cabeçalho da escola, linhas de resposta espaçadas e tipografia amigável para dislexia.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Visualização da Folha de Atividade Gerada -->
+        <div class="browser-frame">
+          <div class="browser-header">
+            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            <span class="browser-url">Atividade Adaptada Gerada por IA — Folha A4</span>
+          </div>
+          <div class="browser-content" style="padding: 14px;">
+            <div class="a4-sheet">
+              <div class="a4-header">
+                <div>
+                  <div style="font-weight: 800; color: var(--dark-green); font-size: 13px;">ESCOLA MUNICIPAL INCLUSIVA</div>
+                  <div style="font-size: 10px; color: var(--text-muted);">Estudante: Lucas Gabriel Santos • 5º Ano</div>
+                </div>
+                <div style="text-align: right;">
+                  <span class="status-badge green">Matemática Adaptada</span>
+                </div>
+              </div>
+
+              <div style="font-size: 11px; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">
+                Tema: Sistema Monetário e Contas Simples (Nível Concreto)
+              </div>
+
+              <div class="a4-question">
+                <div style="font-weight: 700; font-size: 11px; margin-bottom: 3px;">Questão 1: Apoio Visual com Moedas</div>
+                <div style="font-size: 10.5px; color: #475569;">
+                  Lucas comprou uma maçã por R$ 3,00 e pagou com uma nota de R$ 5,00. Desenhe quantas moedas de R$ 1,00 ele recebeu de troco.
+                </div>
+                <div style="margin-top: 6px; height: 20px; border-bottom: 1px dashed #CBD5E1;"></div>
+              </div>
+
+              <div class="a4-question" style="border-left-color: var(--pastel-blue);">
+                <div style="font-weight: 700; font-size: 11px; margin-bottom: 3px;">Questão 2: Associação Numérica</div>
+                <div style="font-size: 10.5px; color: #475569;">
+                  Ligue os valores equivalentes: [ R$ 2,00 + R$ 2,00 ] ➔ ( R$ 4,00 )
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: flex-end; margin-top: 8px;">
+                <button class="mini-btn" style="width: auto; padding: 6px 14px;">🖨️ Imprimir Folha A4</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>IncluiEdu — Geração de Atividades com Inteligência Artificial</span>
+        <span>Slide 6 / 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: PORTAL DA FAMÍLIA -->
+    <div class="slide">
+      <span class="slide-badge">Engajamento Escolar</span>
+      <h2 class="slide-title">5. Portal do Responsável (Aproximação da Família)</h2>
+      <p class="slide-subtitle">Ambiente seguro e intuitivo para os pais acompanharem tarefas e a evolução do aluno.</p>
+
+      <div class="grid-feature">
+        <div>
+          <ul class="bullet-list">
+            <li>
+              <b>Vinculação Segura por Código de 6 Dígitos:</b> O responsável não precisa navegar em menus difíceis. Basta inserir o código fornecido pelo professor para ter acesso imediato ao prontuário do filho.
+            </li>
+            <li>
+              <b>Lista de Tarefas de Casa com Checkbox:</b> Os pais visualizam as atividades recomendadas pelo educador e marcam como concluídas assim que a criança finaliza.
+            </li>
+            <li>
+              <b>Linguagem Clara e Sem Jargões:</b> O portal traduz informações pedagógicas complexas em termos acessíveis para a família.
+            </li>
+            <li>
+              <b>Continuidade do Desenvolvimento:</b> Estimula a cooperação ativa entre a escola e a casa, comprovadamente o fator de maior impacto no PEI.
+            </li>
+          </ul>
+
+          <div style="background: var(--bg-light); border-left: 4px solid var(--pastel-yellow); padding: 12px; border-radius: 6px; margin-top: 14px;">
+            <div style="font-size: 11px; font-weight: 700; color: #854D0E; text-transform: uppercase;">Localização no Código (VS Code)</div>
+            <div style="font-family: monospace; font-size: 12px; color: var(--text-main); margin-top: 4px;">cloudflare/public/telas/painel-responsavel.js (renderGuardianDashboard)</div>
+          </div>
+        </div>
+
+        <!-- Mockup do Portal do Responsável -->
+        <div class="browser-frame">
+          <div class="browser-header">
+            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            <span class="browser-url">https://incluiedu.workers.dev/#/dashboard (Visão da Família)</span>
+          </div>
+          <div class="browser-content" style="padding: 14px;">
+            <div style="background: #FFF; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 10px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">Filho Vinculado</div>
+                  <div style="font-weight: 800; font-size: 13px; color: var(--dark-green);">Lucas Gabriel Santos</div>
+                </div>
+                <span class="status-badge green">🟢 Evoluindo</span>
+              </div>
+            </div>
+
+            <div style="font-weight: 700; font-size: 12px; margin-bottom: 6px;">Tarefas de Casa Recomendadas:</div>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <div style="background: #FFF; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" checked style="accent-color: var(--pastel-green);">
+                <div style="font-size: 11.5px;">Treino de coordenação com massinha (15 min)</div>
+              </div>
+              <div style="background: #FFF; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" style="accent-color: var(--pastel-green);">
+                <div style="font-size: 11.5px;">Leitura do livro ilustrado 'O Pequeno Príncipe'</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>IncluiEdu — Portal da Família</span>
+        <span>Slide 7 / 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: ARQUITETURA DE SOFTWARE E ENGENHARIA -->
+    <div class="slide">
+      <span class="slide-badge">Engenharia de Software</span>
+      <h2 class="slide-title">6. Arquitetura Técnica e Decisões de Projeto</h2>
+      <p class="slide-subtitle">Duas implementações complementares garantindo versatilidade, velocidade e robustez.</p>
+
+      <div class="grid-2">
+        <div class="card card-highlight">
+          <h4 style="color: var(--dark-green);">🌐 Cloudflare Workers Edge SPA</h4>
+          <ul class="bullet-list" style="margin-top: 10px;">
+            <li><b>Hospedagem na Borda (Edge):</b> Resposta em menos de 50ms para qualquer localidade do país.</li>
+            <li><b>Banco SQL Relacional D1:</b> SQLite serverless distribuído com histórico de migrações estruturadas.</li>
+            <li><b>Workers AI (Meta Llama 3.1):</b> Inferência de linguagem natural executada na nuvem da Cloudflare sem servidores pesados.</li>
+            <li><b>Design System em CSS Vanilla:</b> Zero dependências inchadas, alta flexibilidade e acessibilidade total.</li>
+          </ul>
+        </div>
+
+        <div class="card card-blue">
+          <h4 style="color: #1E3A8A;">🐍 Django Server-Side (MVT)</h4>
+          <ul class="bullet-list" style="margin-top: 10px;">
+            <li><b>Arquitetura Clássica Model-View-Template:</b> Templates organizados na pasta centralizada <code>backend/telas/</code>.</li>
+            <li><b>ORM e Segurança Integrada:</b> Proteção nativa contra CSRF, XSS e injeção de SQL.</li>
+            <li><b>IA Local via Ollama:</b> Suporte a inferência offline para escolas sem conexão estável com a internet.</li>
+            <li><b>Suíte de Testes Automatizados:</b> 7 testes unitários cobrindo fluxos de validação de modelos e views.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>IncluiEdu — Comparativo de Arquitetura</span>
+        <span>Slide 8 / 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: PALETA DE CORES E ACESSIBILIDADE VISUAL -->
+    <div class="slide">
+      <span class="slide-badge green">Design System</span>
+      <h2 class="slide-title">7. Identidade Visual e Acessibilidade Inclusiva</h2>
+      <p class="slide-subtitle">A escolha consciente da paleta pastel oficial para ambientes educacionais inclusivos.</p>
+
+      <div class="grid-3" style="margin-bottom: 20px;">
+        <div class="card" style="border-top: 8px solid var(--pastel-green);">
+          <h4>🟢 Verde Menta (#B3DDBC)</h4>
+          <p>Transmite calma, crescimento e sucesso pedagógico. Empregado em botões primários e no status <b>'Evoluindo'</b>.</p>
+        </div>
+        <div class="card" style="border-top: 8px solid var(--pastel-yellow);">
+          <h4>🟡 Amarelo Pastel (#FFF5AD)</h4>
+          <p>Tom amigável para alertas e observação contínua. Empregado no status <b>'Acompanhar'</b> e convites familiares.</p>
+        </div>
+        <div class="card" style="border-top: 8px solid var(--pastel-pink);">
+          <h4>🌸 Rosa Pastel (#EEC1D8)</h4>
+          <p>Destaque visual sem criar ansiedade ou sensação punitiva. Utilizado no status <b>'Atenção Pedagógica'</b>.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card" style="border-top: 8px solid var(--pastel-blue);">
+          <h4>🔵 Azul Pastel (#B4D6DF)</h4>
+          <p>Serenidade e clareza. Usado na linha do tempo, cabeçalhos de atividades e botões secundários.</p>
+        </div>
+        <div class="card" style="border-top: 8px solid var(--neutral-gray);">
+          <h4>⚪ Cinza Neutro (#878787)</h4>
+          <p>Suporte e harmonia visual para bordas, divisores e ícones complementares.</p>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>IncluiEdu — Design System Oficial</span>
+        <span>Slide 9 / 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: CONCLUSÃO E AGRADECIMENTOS -->
+    <div class="slide">
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+        <span class="slide-badge green">Conclusão do Trabalho</span>
+        <h2 style="font-size: 32px; font-weight: 800; color: var(--dark-green); margin-bottom: 14px;">
+          Impacto Social, Viabilidade e Futuro do IncluiEdu
+        </h2>
+        <p style="font-size: 16px; color: var(--text-muted); max-width: 760px; line-height: 1.6; margin-bottom: 28px;">
+          O projeto entrega uma solução completa, com código-fonte organizado, manual técnico de navegação no VS Code e aplicação publicada em produção pronta para avaliação pela banca.
+        </p>
+
+        <div class="grid-3" style="max-width: 860px; text-align: left; margin-bottom: 30px;">
+          <div class="card card-highlight">
+            <h4>Redução de Carga</h4>
+            <p>Economia de tempo docente na formulação e impressão de atividades adaptadas com IA.</p>
+          </div>
+          <div class="card card-yellow">
+            <h4>Triagem Clara</h4>
+            <p>Separação visual dos alunos por status pedagógico para priorização das intervenções.</p>
+          </div>
+          <div class="card card-blue">
+            <h4>União com a Família</h4>
+            <p>Engajamento dos responsáveis no processo inclusivo de forma simples e segura.</p>
+          </div>
+        </div>
+
+        <div style="background: var(--bg-light); padding: 12px 30px; border-radius: 30px; border: 1px solid var(--border-color); font-weight: 600; color: var(--dark-green);">
+          Obrigado! Aberto para perguntas da Banca Examinadora.
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>IncluiEdu — Repositório: github.com/PedroFonsecac137/tccfacul</span>
+        <span>Slide 10 / 10</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const counter = document.getElementById('counter');
+    const progressBar = document.getElementById('progressBar');
+
+    function updateSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= totalSlides) index = totalSlides - 1;
+      
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === index);
+      });
+
+      currentSlide = index;
+      counter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+      progressBar.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+    }
+
+    function nextSlide() {
+      updateSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      updateSlide(currentSlide - 1);
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    // Navegação por Teclado
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        updateSlide(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        updateSlide(totalSlides - 1);
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      }
+    });
+
+    // Inicialização
+    updateSlide(0);
+  </script>
+</body>
+</html>
