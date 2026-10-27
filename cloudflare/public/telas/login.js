@@ -13,6 +13,7 @@ function authView(mode = "login") {
           <div class="palette-chip" style="background:#B4D6DF" title="Azul Pastel #B4D6DF"><span>#B4D6DF</span></div>
           <div class="palette-chip" style="background:#878787" title="Cinza Neutro #878787"><span>#878787</span></div>
         </div>
+        <img class="auth-brand-logo" src="/logo-incluiedu.png" alt="IncluiEdu" style="max-width: 210px; height: auto; margin-bottom: 22px; display: block;" />
         <h1>Ensino inclusivo com acompanhamento de verdade.</h1>
         <p>Escola e família acompanhando juntos cada evolução.</p>
         <ul class="auth-features">

@@ -105,7 +105,14 @@ body {
 .brand-logo {
   width: 48px;
   height: 48px;
+  object-fit: contain;
   display: block;
+}
+.auth-brand-logo {
+  display: block;
+  max-width: 210px;
+  height: auto;
+  margin-bottom: 22px;
 }
 .mark {
   width: 42px;
