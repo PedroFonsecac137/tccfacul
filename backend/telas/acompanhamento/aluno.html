@@ -1,0 +1,13 @@
+{% extends "acompanhamento/base.html" %}
+{% block title %}{{ aluno.nome }} · IncluiEdu{% endblock %}
+{% block content %}
+<a class="back" href="{% url 'acompanhamento:painel' %}?turma={{ aluno.turma_id }}">← Voltar para {{ aluno.turma.nome }}</a>
+<header class="student-header"><span class="avatar large">{{ aluno.iniciais }}</span><div><h1>{{ aluno.nome }}</h1><p>{{ aluno.turma }} · {{ aluno.area }}</p></div><div class="student-actions"><span class="status {{ aluno.status }}">{{ aluno.get_status_display }}</span><a class="button secondary compact" href="{% url 'acompanhamento:aluno_editar' aluno.id %}">Editar</a></div></header>
+<section class="detail-grid">
+  <div class="stack">
+    <article class="panel"><div class="panel-heading"><h2>Acompanhamento pedagógico</h2></div><div class="panel-body"><span class="eyebrow">Dificuldade ou habilidade acompanhada</span><div class="finding"><strong>{{ aluno.dificuldade }}</strong><p>{{ aluno.evidencia }}</p></div><span class="eyebrow">Estratégia que pode ajudar</span><div class="suggestion"><p>{{ aluno.estrategia }}</p></div><a class="button primary full" href="{% url 'acompanhamento:gerar_atividade' aluno.id %}">Criar atividade personalizada</a></div></article>
+    <article class="panel"><div class="panel-heading"><h2>Registros recentes</h2></div><div class="panel-body timeline">{% for observacao in aluno.observacoes.all %}<div><time>{{ observacao.criado_em|date:"d/m/Y · H:i" }}</time>{% if observacao.area or observacao.habilidade %}<strong>{{ observacao.area }}{% if observacao.habilidade %} · {{ observacao.habilidade }}{% endif %}</strong>{% endif %}{% if observacao.nivel %}<small>Nível {{ observacao.nivel }}/5 — {{ observacao.get_nivel_display }}</small>{% endif %}<p>{{ observacao.texto }}</p></div>{% empty %}<p class="empty">Ainda não há observações registradas.</p>{% endfor %}</div></article>
+  </div>
+  <aside class="panel"><div class="panel-heading"><h2>Novo registro pedagógico</h2></div><form class="panel-body form" method="post">{% csrf_token %}{{ form.as_div }}<button class="button primary full" type="submit">Salvar registro</button></form></aside>
+</section>
+{% endblock %}

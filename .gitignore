@@ -1,22 +1,69 @@
+# ==============================================================================
+# .gitignore — Projeto de TCC (IncluiEdu)
+# ==============================================================================
+
+# Ambientes virtuais e pacotes Python
 .venv/
 venv/
+env/
+ENV/
 __pycache__/
 *.py[cod]
+*$py.class
+
+# Bancos de dados locais (gerados em tempo de execução)
 db.sqlite3
+*.sqlite3
+*.db
+
+# Segredos, variáveis de ambiente e credenciais
 .env
 .env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 !.env.example
+*.pem
+*.key
+*.cert
+*cookies*.txt
+
+# Dependências e builds JavaScript / Node / Cloudflare
 node_modules/
 .wrangler/
-.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Caches e arquivos temporários de renderizadores e IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
 .chrome-render/
 .edge-render/
 .kombai/
-arquivados/
-*.zip
-*.exe
-*cookies*.txt
-~$*
 .codex-finalizer/
 .codex-pptx/
 tmp/
+arquivados/
+
+# Arquivos compactados e executáveis
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.exe
+
+# Arquivos temporários do Sistema Operacional e Office
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+~$*

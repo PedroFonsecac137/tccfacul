@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#68122f" />
+    <meta name="theme-color" content="#B3DDBC" />
     <meta
       name="description"
       content="Plataforma de acompanhamento pedagógico inclusivo"
@@ -14,13 +14,20 @@
   </head>
   <body>
     <header class="top">
-      <a class="brand" href="#"
-        ><img
-          class="brand-logo"
-          src="/logo-incluiedu.svg"
-          alt="IncluiEdu"
-        /><span>IncluiEdu<small>Acompanhamento pedagógico</small></span></a
-      >
+      <a class="brand" href="#">
+        <img class="brand-logo" src="/logo-incluiedu.svg" alt="IncluiEdu" />
+        <div class="brand-text">
+          <span class="brand-title">IncluiEdu</span>
+          <div class="brand-palette" title="Paleta Oficial: #B3DDBC, #FFF5AD, #EEC1D8, #B4D6DF, #878787">
+            <span style="background: #B3DDBC"></span>
+            <span style="background: #FFF5AD"></span>
+            <span style="background: #EEC1D8"></span>
+            <span style="background: #B4D6DF"></span>
+            <span style="background: #878787"></span>
+          </div>
+          <small>Acompanhamento pedagógico</small>
+        </div>
+      </a>
       <nav id="nav" hidden>
         <button data-view="dashboard">Painel</button
         ><button data-view="manage">Turmas e alunos</button
@@ -31,6 +38,12 @@
       <section class="loading"><span></span>Carregando plataforma...</section>
     </main>
     <div id="toast" aria-live="polite"></div>
+    <script src="/telas/modais.js" defer></script>
+    <script src="/telas/login.js" defer></script>
+    <script src="/telas/painel-professor.js" defer></script>
+    <script src="/telas/painel-responsavel.js" defer></script>
+    <script src="/telas/aluno-prontuario.js" defer></script>
+    <script src="/telas/gerenciar-turmas.js" defer></script>
     <script src="/app.js" defer></script>
   </body>
 </html>
